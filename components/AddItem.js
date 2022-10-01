@@ -5,8 +5,8 @@ const AddItem = ({ setInventory }) => {
 
         inventory.push({
             ID,
-            emoji: '',
-            item: '',
+            emoji: '🍊',
+            item: 'tangerine',
             amount: 1
         });
 

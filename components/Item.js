@@ -1,4 +1,37 @@
-const Item = ({ emoji, item, amount }) => {
+import { useEffect, useState } from 'react';
+
+const Item = ({ ID, emoji, item, amount }) => {
+    const [isEditing, setIsEditing] = useState({
+        emoji: false,
+        item: false,
+        amount: false
+    });
+    const toggleIsEditing = event => {
+        setIsEditing(previousIsEditing => ({
+            ...previousIsEditing,
+            [event.target.getAttribute('data-id')]:
+                !previousIsEditing[event.target.getAttribute('data-id')]
+        }));
+    };
+
+    const [newEmoji, setNewEmoji] = useState('');
+    const handleNewEmoji = event => {
+        if (event.currentTarget.value.length > 2) return;
+        setNewEmoji(event.currentTarget.value);
+
+        if (event.currentTarget.value.length === 2) {
+            let inventory = JSON.parse(localStorage.getItem('inventory'));
+            let itemIndex = inventory.findIndex(item => item.ID === ID);
+
+            inventory[itemIndex].emoji = event.currentTarget.value;
+            localStorage.setItem('inventory', JSON.stringify(inventory));
+        }
+    };
+
+    useEffect(() => {
+        setNewEmoji(emoji);
+    }, []);
+
     return (
         <div className="item mb-1">
             <div className="text-right">
@@ -14,10 +47,28 @@ const Item = ({ emoji, item, amount }) => {
             </div>
             <div className="flex-flow">
                 <div className="flex-flow">
-                    <div className="item-emoji mr-1">{emoji}</div>
-                    <div>{item}</div>
+                    <div
+                        onClick={toggleIsEditing}
+                        data-id="emoji"
+                        className="item-emoji mr-1">
+                        {isEditing.emoji ? (
+                            <input
+                                className="item-emoji-input"
+                                type="text"
+                                onChange={handleNewEmoji}
+                                value={newEmoji}
+                            />
+                        ) : (
+                            emoji
+                        )}
+                    </div>
+                    <div onClick={toggleIsEditing} data-id="item">
+                        {item}
+                    </div>
                 </div>
-                <div>{amount}</div>
+                <div onClick={toggleIsEditing} data-id="amount">
+                    {amount}
+                </div>
             </div>
         </div>
     );

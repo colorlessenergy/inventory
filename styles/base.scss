@@ -39,3 +39,12 @@ svg {
 
     fill: #ffffff;
 }
+
+input[type='text'],
+input[type='number'] {
+    border: 1px solid #fff;
+
+    background-color: #333333;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+}

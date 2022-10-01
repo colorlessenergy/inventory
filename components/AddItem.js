@@ -1,5 +1,5 @@
 const AddItem = ({ setInventory }) => {
-    const addItemToInventory = () => {
+    const addItem = () => {
         const inventory = JSON.parse(localStorage.getItem('inventory'));
         const ID = JSON.parse(localStorage.getItem('ID'));
 
@@ -19,7 +19,7 @@ const AddItem = ({ setInventory }) => {
     };
 
     return (
-        <button onClick={addItemToInventory} className="yellow-button">
+        <button onClick={addItem} className="yellow-button">
             add
         </button>
     );

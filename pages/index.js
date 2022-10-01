@@ -9,7 +9,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div>
+            <div className="container">
                 <header>
                     <h1>inventory</h1>
 

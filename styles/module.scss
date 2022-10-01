@@ -1,7 +1,18 @@
 @use './variables.scss' as *;
 
+.container {
+    max-width: 800px;
+    margin: 0 $space-1;
+}
+
 .yellow-button {
     background-color: $yellow;
     border-radius: 4px;
     min-width: 80px;
+}
+
+@media (min-width: 800px) {
+    .container {
+        margin: 0 auto;
+    }
 }

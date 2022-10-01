@@ -28,8 +28,20 @@ const Item = ({ ID, emoji, item, amount, setInventory }) => {
         }
     };
 
+    const [newItem, setNewItem] = useState('');
+    const handleNewItem = event => {
+        setNewItem(event.currentTarget.value);
+
+        let inventory = JSON.parse(localStorage.getItem('inventory'));
+        let itemIndex = inventory.findIndex(item => item.ID === ID);
+
+        inventory[itemIndex].item = event.currentTarget.value;
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+    };
+
     useEffect(() => {
         setNewEmoji(emoji);
+        setNewItem(item);
     }, []);
 
     const handleFinishedEditing = () => {
@@ -80,7 +92,16 @@ const Item = ({ ID, emoji, item, amount, setInventory }) => {
                         )}
                     </div>
                     <div onClick={toggleIsEditing} data-id="item">
-                        {item}
+                        {isEditing.item ? (
+                            <input
+                                className="item-input"
+                                type="text"
+                                onChange={handleNewItem}
+                                value={newItem}
+                            />
+                        ) : (
+                            item
+                        )}
                     </div>
                 </div>
                 <div onClick={toggleIsEditing} data-id="amount">

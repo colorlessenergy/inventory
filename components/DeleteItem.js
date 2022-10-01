@@ -9,7 +9,7 @@ const DeleteItem = ({ ID, setInventory }) => {
     };
 
     return (
-        <button onClick={deleteItem}>
+        <button onClick={deleteItem} title="delete item">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

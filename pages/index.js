@@ -1,6 +1,33 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
+import Item from '../components/Item';
+
 export default function Home() {
+    const [inventory, setInventory] = useState([]);
+    useEffect(() => {
+        setInventory(JSON.parse(localStorage.getItem('inventory')));
+    }, []);
+
+    const addItemToInventory = () => {
+        const inventory = JSON.parse(localStorage.getItem('inventory'));
+        const ID = JSON.parse(localStorage.getItem('ID'));
+
+        inventory.push({
+            ID,
+            emoji: '',
+            item: '',
+            amount: 1
+        });
+
+        ID += 1;
+
+        localStorage.setItem('ID', JSON.stringify(ID));
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+
+        setInventory(JSON.parse(localStorage.getItem('inventory')));
+    };
+
     return (
         <div>
             <Head>
@@ -10,33 +37,26 @@ export default function Home() {
             </Head>
 
             <div className="container">
-                <header>
+                <div className="flex-flow">
                     <h1>inventory</h1>
 
-                    <button className="yellow-button">add</button>
-                </header>
+                    <button
+                        onClick={addItemToInventory}
+                        className="yellow-button">
+                        add
+                    </button>
+                </div>
 
                 <div>
-                    <div className="item mb-1">
-                        <div className="text-right">
-                            <button className="icon-container">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    width="20"
-                                    height="20">
-                                    <path d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div className="flex-flow">
-                            <div className="flex-flow">
-                                <div className="item-emoji mr-1">🍊</div>
-                                <div>tangerine</div>
-                            </div>
-                            <div>1</div>
-                        </div>
-                    </div>
+                    {inventory.map(item => {
+                        return (
+                            <Item
+                                emoji={item.emoji}
+                                item={item.item}
+                                amount={item.amount}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </div>

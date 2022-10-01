@@ -8,6 +8,14 @@ export default function Home() {
                 <meta name="description" content="inventory" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            <div>
+                <header>
+                    <h1>inventory</h1>
+
+                    <button className="yellow-button">add</button>
+                </header>
+            </div>
         </div>
     );
 }

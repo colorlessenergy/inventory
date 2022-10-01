@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const Item = ({ ID, emoji, item, amount }) => {
+const Item = ({ ID, emoji, item, amount, setInventory }) => {
     const [isEditing, setIsEditing] = useState({
         emoji: false,
         item: false,
@@ -32,9 +32,26 @@ const Item = ({ ID, emoji, item, amount }) => {
         setNewEmoji(emoji);
     }, []);
 
+    const handleFinishedEditing = () => {
+        setIsEditing({
+            emoji: false,
+            item: false,
+            amount: false
+        });
+
+        setInventory(JSON.parse(localStorage.getItem('inventory')));
+    };
+
     return (
         <div className="item mb-1">
             <div className="text-right">
+                {isEditing.emoji || isEditing.item || isEditing.amount ? (
+                    <button
+                        onClick={handleFinishedEditing}
+                        className="yellow-button mr-1">
+                        done
+                    </button>
+                ) : null}
                 <button>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

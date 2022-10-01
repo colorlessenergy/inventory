@@ -33,6 +33,7 @@ export default function Home() {
                                 emoji={item.emoji}
                                 item={item.item}
                                 amount={item.amount}
+                                setInventory={setInventory}
                             />
                         );
                     })}

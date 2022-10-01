@@ -1,0 +1,23 @@
+@use './variables.scss' as *;
+
+.mr-1 {
+    margin-right: $space-1;
+}
+
+.mb-1 {
+    margin-bottom: $space-1;
+}
+
+.flex-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.icon-container {
+    height: 20px;
+}

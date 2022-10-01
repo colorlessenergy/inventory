@@ -11,6 +11,14 @@
     min-width: 80px;
 }
 
+.item {
+    border-bottom: 3px solid #ffff;
+}
+
+.item-emoji {
+    font-size: 40px;
+}
+
 @media (min-width: 800px) {
     .container {
         margin: 0 auto;

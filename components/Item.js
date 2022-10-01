@@ -1,4 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
+import Emoji from './Item/Emoji';
+import Text from './Item/Text';
+import Amount from './Item/Amount';
 
 const Item = ({ ID, emoji, item, amount, setInventory }) => {
     const [isEditing, setIsEditing] = useState({
@@ -13,48 +17,6 @@ const Item = ({ ID, emoji, item, amount, setInventory }) => {
                 !previousIsEditing[event.target.getAttribute('data-id')]
         }));
     };
-
-    const [newEmoji, setNewEmoji] = useState('');
-    const handleNewEmoji = event => {
-        if (event.currentTarget.value.length > 2) return;
-        setNewEmoji(event.currentTarget.value);
-
-        if (event.currentTarget.value.length === 2) {
-            let inventory = JSON.parse(localStorage.getItem('inventory'));
-            let itemIndex = inventory.findIndex(item => item.ID === ID);
-
-            inventory[itemIndex].emoji = event.currentTarget.value;
-            localStorage.setItem('inventory', JSON.stringify(inventory));
-        }
-    };
-
-    const [newItem, setNewItem] = useState('');
-    const handleNewItem = event => {
-        setNewItem(event.currentTarget.value);
-
-        let inventory = JSON.parse(localStorage.getItem('inventory'));
-        let itemIndex = inventory.findIndex(item => item.ID === ID);
-
-        inventory[itemIndex].item = event.currentTarget.value;
-        localStorage.setItem('inventory', JSON.stringify(inventory));
-    };
-
-    const [newAmount, setNewAmount] = useState(1);
-    const handleNewAmount = event => {
-        setNewAmount(event.currentTarget.value);
-
-        let inventory = JSON.parse(localStorage.getItem('inventory'));
-        let itemIndex = inventory.findIndex(item => item.ID === ID);
-
-        inventory[itemIndex].amount = event.currentTarget.value;
-        localStorage.setItem('inventory', JSON.stringify(inventory));
-    };
-
-    useEffect(() => {
-        setNewEmoji(emoji);
-        setNewItem(item);
-        setNewAmount(amount);
-    }, []);
 
     const handleFinishedEditing = () => {
         setIsEditing({
@@ -88,46 +50,26 @@ const Item = ({ ID, emoji, item, amount, setInventory }) => {
             </div>
             <div className="flex-flow">
                 <div className="flex-flow">
-                    <div
-                        onClick={toggleIsEditing}
-                        data-id="emoji"
-                        className="item-emoji mr-1">
-                        {isEditing.emoji ? (
-                            <input
-                                className="item-emoji-input"
-                                type="text"
-                                onChange={handleNewEmoji}
-                                value={newEmoji}
-                            />
-                        ) : (
-                            emoji
-                        )}
-                    </div>
-                    <div onClick={toggleIsEditing} data-id="item">
-                        {isEditing.item ? (
-                            <input
-                                className="item-input"
-                                type="text"
-                                onChange={handleNewItem}
-                                value={newItem}
-                            />
-                        ) : (
-                            item
-                        )}
-                    </div>
+                    <Emoji
+                        ID={ID}
+                        emoji={emoji}
+                        toggleIsEditing={toggleIsEditing}
+                        isEditingEmoji={isEditing.emoji}
+                    />
+                    <Text
+                        ID={ID}
+                        item={item}
+                        toggleIsEditing={toggleIsEditing}
+                        isEditingItem={isEditing.item}
+                    />
                 </div>
-                <div onClick={toggleIsEditing} data-id="amount">
-                    {isEditing.amount ? (
-                        <input
-                            className="item-amount-input"
-                            type="number"
-                            onChange={handleNewAmount}
-                            value={newAmount}
-                        />
-                    ) : (
-                        amount
-                    )}
-                </div>
+
+                <Amount
+                    ID={ID}
+                    amount={amount}
+                    toggleIsEditing={toggleIsEditing}
+                    isEditingAmount={isEditing.amount}
+                />
             </div>
         </div>
     );

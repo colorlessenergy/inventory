@@ -6,8 +6,7 @@ const Text = ({ ID, item, toggleIsEditing, isEditingItem }) => {
         setNewItem(event.currentTarget.value);
 
         let inventory = JSON.parse(localStorage.getItem('inventory'));
-        let itemIndex = inventory.findIndex(item => item.ID === ID);
-
+        const itemIndex = inventory.findIndex(item => item.ID === ID);
         inventory[itemIndex].item = event.currentTarget.value;
         localStorage.setItem('inventory', JSON.stringify(inventory));
     };

@@ -8,8 +8,7 @@ const Emoji = ({ ID, emoji, toggleIsEditing, isEditingEmoji }) => {
 
         if (event.currentTarget.value.length === 2) {
             let inventory = JSON.parse(localStorage.getItem('inventory'));
-            let itemIndex = inventory.findIndex(item => item.ID === ID);
-
+            const itemIndex = inventory.findIndex(item => item.ID === ID);
             inventory[itemIndex].emoji = event.currentTarget.value;
             localStorage.setItem('inventory', JSON.stringify(inventory));
         }

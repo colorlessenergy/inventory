@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Emoji = ({ ID, emoji, toggleIsEditing, isEditingEmoji }) => {
     const [newEmoji, setNewEmoji] = useState('');
@@ -18,6 +18,13 @@ const Emoji = ({ ID, emoji, toggleIsEditing, isEditingEmoji }) => {
         setNewEmoji(emoji);
     }, []);
 
+    const inputRef = useRef();
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isEditingEmoji]);
+
     return (
         <div
             onClick={toggleIsEditing}
@@ -29,6 +36,7 @@ const Emoji = ({ ID, emoji, toggleIsEditing, isEditingEmoji }) => {
                     type="text"
                     onChange={handleNewEmoji}
                     value={newEmoji}
+                    ref={inputRef}
                 />
             ) : (
                 newEmoji

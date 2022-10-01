@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Text = ({ ID, item, toggleIsEditing, isEditingItem }) => {
     const [newItem, setNewItem] = useState('');
@@ -15,6 +15,13 @@ const Text = ({ ID, item, toggleIsEditing, isEditingItem }) => {
         setNewItem(item);
     }, []);
 
+    const inputRef = useRef();
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isEditingItem]);
+
     return (
         <div onClick={toggleIsEditing} data-id="item">
             {isEditingItem ? (
@@ -23,6 +30,7 @@ const Text = ({ ID, item, toggleIsEditing, isEditingItem }) => {
                     type="text"
                     onChange={handleNewItem}
                     value={newItem}
+                    ref={inputRef}
                 />
             ) : (
                 newItem

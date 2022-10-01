@@ -2,7 +2,7 @@ const Item = ({ emoji, item, amount }) => {
     return (
         <div className="item mb-1">
             <div className="text-right">
-                <button className="icon-container">
+                <button>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"

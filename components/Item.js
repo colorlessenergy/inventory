@@ -27,6 +27,14 @@ const Item = ({ ID, emoji, item, amount, setInventory }) => {
 
         setInventory(JSON.parse(localStorage.getItem('inventory')));
     };
+    const deleteItem = () => {
+        let inventory = JSON.parse(localStorage.getItem('inventory'));
+        const itemIndex = inventory.findIndex(item => item.ID === ID);
+        inventory.splice(itemIndex, 1);
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+
+        setInventory(JSON.parse(localStorage.getItem('inventory')));
+    };
 
     return (
         <div className="item mb-1">
@@ -38,7 +46,7 @@ const Item = ({ ID, emoji, item, amount, setInventory }) => {
                         done
                     </button>
                 ) : null}
-                <button>
+                <button onClick={deleteItem}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"

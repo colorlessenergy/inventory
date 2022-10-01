@@ -29,6 +29,7 @@ export default function Home() {
                     {inventory.map(item => {
                         return (
                             <Item
+                                key={item.ID}
                                 ID={item.ID}
                                 emoji={item.emoji}
                                 item={item.item}

@@ -2,31 +2,13 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 import Item from '../components/Item';
+import AddItem from '../components/AddItem';
 
 export default function Home() {
     const [inventory, setInventory] = useState([]);
     useEffect(() => {
         setInventory(JSON.parse(localStorage.getItem('inventory')));
     }, []);
-
-    const addItemToInventory = () => {
-        const inventory = JSON.parse(localStorage.getItem('inventory'));
-        const ID = JSON.parse(localStorage.getItem('ID'));
-
-        inventory.push({
-            ID,
-            emoji: '',
-            item: '',
-            amount: 1
-        });
-
-        ID += 1;
-
-        localStorage.setItem('ID', JSON.stringify(ID));
-        localStorage.setItem('inventory', JSON.stringify(inventory));
-
-        setInventory(JSON.parse(localStorage.getItem('inventory')));
-    };
 
     return (
         <div>
@@ -40,11 +22,7 @@ export default function Home() {
                 <div className="flex-flow">
                     <h1>inventory</h1>
 
-                    <button
-                        onClick={addItemToInventory}
-                        className="yellow-button">
-                        add
-                    </button>
+                    <AddItem setInventory={setInventory} />
                 </div>
 
                 <div>
